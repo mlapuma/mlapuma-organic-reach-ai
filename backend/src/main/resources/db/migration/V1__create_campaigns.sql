@@ -1,0 +1,8 @@
+CREATE TABLE campaigns (
+  id UUID PRIMARY KEY,
+  title VARCHAR(160) NOT NULL,
+  description TEXT,
+  landing_url VARCHAR(2048),
+  status VARCHAR(20) NOT NULL DEFAULT 'DRAFT',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
