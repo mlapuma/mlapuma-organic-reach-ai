@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-organicreach}
+      POSTGRES_USER: ${POSTGRES_USER:-organicreach}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-local-only}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-organicreach} -d ${POSTGRES_DB:-organicreach}"]
+      interval: 5s
+      retries: 10
+    volumes: [pgdata:/var/lib/postgresql/data]
+  backend:
+    build: ./backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-organicreach}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-organicreach}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-change-me-local-only}
+    ports: ["8080:8080"]
+    depends_on:
+      db: {condition: service_healthy}
+  frontend:
+    build: ./frontend
+    environment:
+      API_INTERNAL_URL: http://backend:8080
+    ports: ["3000:3000"]
+    depends_on: [backend]
+volumes:
+  pgdata:
