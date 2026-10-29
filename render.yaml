@@ -1,0 +1,33 @@
+# Render Blueprint: ambiente de homologação, não produção.
+# Antes de criar serviços públicos, habilite autenticação nas APIs e no painel.
+# O deploy automático está desativado intencionalmente.
+services:
+  - type: web
+    name: organic-reach-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    autoDeployTrigger: off
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: SERVER_PORT
+        value: "10000"
+  - type: web
+    name: organic-reach-web
+    runtime: docker
+    plan: free
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    autoDeployTrigger: off
+    envVars:
+      - key: API_INTERNAL_URL
+        sync: false
+# Banco externo/Render Postgres deve ser configurado separadamente.
+# Render Free Postgres expira após 30 dias; evite dados reais.
