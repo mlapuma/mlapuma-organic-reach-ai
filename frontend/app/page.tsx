@@ -1,9 +1,10 @@
 import {createCampaign,createPartner} from "./actions";
+import {apiHeaders} from "../lib/api";
 type Campaign={id:string;title:string;description:string|null;status:string;landingUrl:string|null};
 type Partner={id:string;name:string;handle:string|null;platform:string;status:string};
 const api=process.env.API_INTERNAL_URL||"http://localhost:8080";
 async function load<T>(path:string):Promise<T[]>{
- try{const response=await fetch(api+path,{cache:"no-store"});return response.ok?await response.json():[];}catch{return [];}
+ try{const response=await fetch(api+path,{cache:"no-store",headers:apiHeaders()});return response.ok?await response.json():[];}catch{return [];}
 }
 const card:React.CSSProperties={padding:22,border:"1px solid #334155",borderRadius:16,background:"#111c2d"};
 const input:React.CSSProperties={padding:12,borderRadius:8,border:"1px solid #475569",background:"#0b1220",color:"#fff",width:"100%",boxSizing:"border-box"};
