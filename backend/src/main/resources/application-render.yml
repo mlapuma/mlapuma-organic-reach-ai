@@ -1,0 +1,10 @@
+server:
+  port: ${SERVER_PORT:10000}
+spring:
+  jpa:
+    open-in-view: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
