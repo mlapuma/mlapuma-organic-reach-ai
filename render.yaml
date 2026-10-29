@@ -1,6 +1,4 @@
-# Render Blueprint: ambiente de homologação, não produção.
-# Antes de criar serviços públicos, habilite autenticação nas APIs e no painel.
-# O deploy automático está desativado intencionalmente.
+# Homologação: definir as mesmas credenciais de painel em ambos os serviços.
 services:
   - type: web
     name: organic-reach-api
@@ -17,6 +15,10 @@ services:
         sync: false
       - key: SPRING_DATASOURCE_PASSWORD
         sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
       - key: SERVER_PORT
         value: "10000"
   - type: web
@@ -29,5 +31,8 @@ services:
     envVars:
       - key: API_INTERNAL_URL
         sync: false
-# Banco externo/Render Postgres deve ser configurado separadamente.
-# Render Free Postgres expira após 30 dias; evite dados reais.
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+# PostgreSQL criado separadamente; configure URL JDBC, usuário e senha.
