@@ -13,6 +13,7 @@ export default async function Home(){
  return <main style={{maxWidth:1100,margin:"auto",padding:"36px 20px"}}>
   <div style={{color:"#d4af37",fontWeight:700}}>ORGANIC REACH AI · CLÍNICA LACARI</div>
   <h1 style={{fontSize:38,marginBottom:8}}>Central de crescimento orgânico</h1>
+  <a href="/editorial" style={{color:"#d4af37",fontWeight:700}}>Abrir planejador editorial →</a>
   <p style={{color:"#94a3b8"}}>Gerencie campanhas e parceiros voluntários. Publicações e integração Meta ainda não estão ativadas.</p>
   <section style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(210px,1fr))",gap:14,marginTop:26}}>
    {[[ "Campanhas",campaigns.length ],["Parceiros cadastrados",partners.length],["Meta API","Pendente"],["Publicação automática","Desativada"]].map(([name,value])=><article key={name} style={card}><div style={{color:"#94a3b8"}}>{name}</div><h2>{value}</h2></article>)}
